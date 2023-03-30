@@ -8,13 +8,11 @@ import java.util.Arrays;
 
 public class Antenna extends Point {
 
-    public ArrayList<Point> getReachables() {
-        return reachables;
-    }
-
     private ArrayList<Point> reachables = new ArrayList<>();
-    private final double antennaTop;
 
+
+
+    private final double antennaTop;
     private final Grid grid;
 
     public Antenna(Point location, Grid grid) {
@@ -119,9 +117,16 @@ public class Antenna extends Point {
         }
         output_field[(grid.getHeight() - 1) - this.getY()][this.getX()] = "A";
 
-        return Arrays.deepToString(output_field).replace("], ", "\n").replaceAll("[\\[,\\]]", "");
+        String field = Arrays.deepToString(output_field).replace("], ", "\n").replaceAll("[\\[,\\]]", "");
+        String pos = "Antenna Position: (" + this.getX() + "," + this.getY() + "|" + this.antennaTop + ")";
+        String count = "reachable Points: (" + this.reachables.size() + "/" + this.grid.getField().size() +  ")";
+
+        return pos + "\n" + field + "\n" + count;
     }
 
+    public ArrayList<Point> getReachables() {
+        return reachables;
+    }
     /*
     @Override
     public String toString(){
@@ -158,5 +163,8 @@ public class Antenna extends Point {
 
     }*/
 
+    public double getAntennaTop() {
+        return antennaTop;
+    }
 }
 

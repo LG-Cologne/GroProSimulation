@@ -11,24 +11,28 @@ import java.util.Arrays;
 
 public class Grid {
 
+
+
+    private String name;
     private int height;
     private int width;
-
-    private ArrayList<Point> field = new ArrayList<>();
+    private final ArrayList<Point> field = new ArrayList<>();
 
     public Grid(String fileName){
+        this.name = fileName;
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/inputFiles/" + fileName))) {
             String line;
             boolean dimensionIsSet = false;
             int yPos = 0;
             while ((line = br.readLine()) != null) {
-                    if (line.matches("^\\d+(\\s\\d+)*$")) { // Check if line contains only numbers
-                        String[] tokens = line.split("\\s"); // Split line into tokens using whitespace as a separator
-                        int[] lineNumbers = new int[tokens.length];
+                    if (line.matches("^\\d+(\\s\\d+)*$")) {     // Check if line contains only numbers
+                        String[] tokens = line.split("\\s");    // Split line into tokens using whitespace as a separator
 
+                        int[] lineNumbers = new int[tokens.length];   // Transform Token to Int List
                         for (int i = 0; i < tokens.length; i++) {
                             lineNumbers[i] = Integer.parseInt(tokens[i]);
                         }
+
 
                         if (dimensionIsSet){
                             yPos--;
@@ -82,6 +86,17 @@ public class Grid {
         return Arrays.deepToString(output_field).replace("], ", "\n").replaceAll("[\\[,\\]]", "");
     }
 
+    public ArrayList<Point> getPointsInRow(int row){
+        ArrayList<Point> pointsInRow = new ArrayList<>();
+        for (Point point : this.field){
+            if (point.getX() == row){
+                pointsInRow.add(point);
+            }
+        }
+
+        return pointsInRow;
+    }
+
     public ArrayList<Point> getField() {
         return field;
     }
@@ -92,5 +107,8 @@ public class Grid {
 
     public int getWidth() {
         return width;
+    }
+    public String getName() {
+        return name;
     }
 }

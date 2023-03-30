@@ -16,7 +16,6 @@ public class Gate {
         int positionA;
         int positionB;
 
-
         if (isVertical) {
             this.gateLocation = pA.getX();
 
